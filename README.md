@@ -1,7 +1,7 @@
 # 🤖 UR5e–YOLO Vision Integration
 
 ![ROS2](https://img.shields.io/badge/ROS2-Humble-blue)
-![MATLAB](https://img.shields.io/badge/MATLAB-Control-orange)
+![Python](https://img.shields.io/badge/Python-Control-yellow)
 ![YOLOv5](https://img.shields.io/badge/YOLOv5-Object%20Detection-green)
 ![UR5e](https://img.shields.io/badge/Robot-UR5e-red)
 
@@ -10,7 +10,7 @@ A real-time vision-guided robotic system integrating:
 - **UR5e robotic arm**
 - **Intel RealSense camera**
 - **YOLO-based object detection**
-- **MATLAB control node (ROS 2)**
+- **Python control node (ROS 2)**
 
 The system detects objects and dynamically adjusts robot behavior based on detection confidence.
 
@@ -32,7 +32,7 @@ The system detects objects and dynamically adjusts robot behavior based on detec
 graph LR
     A[RealSense Camera] -->|Image Topic| B[YOLO Detection Node]
     B -->|Detection Results| C[Confidence Bridge Node]
-    C -->|/confidence| D[MATLAB Control Node]
+    C -->|/confidence| D[Python Control Node]
     D -->|URScript Commands| E[UR5e Robot]
 
     subgraph ROS2 Ecosystem
@@ -48,12 +48,13 @@ graph LR
 
 ## Getting Started
 
-### rerequisites
+### Prerequisites
 
 - ROS 2 (Humble or compatible)
 - Intel RealSense SDK
 - YOLOv5 ROS package
-- MATLAB with ROS Toolbox
+- Python 3.10 with ROS 2 Python packages (`rclpy`, `std_msgs`)
+- NumPy
 - UR5e robot connected to network
 
 ---
@@ -122,22 +123,24 @@ ros2 run confid_subpub confid_subpub
 
 ---
 
-### 5️⃣ Launch MATLAB Control Node
+### 5️⃣ Launch Python Control Node
 
 ```bash
-matlab -softwareopengl
+source /opt/ros/humble/setup.bash
+python3.10 ur5e_ros2_lookAt_control.py
 ```
 
-Run in MATLAB:
+If `python3.10` is not on your PATH, use the system Python directly:
 
-```matlab
-ur5e_ros2_lookAt_control.m
+```bash
+source /opt/ros/humble/setup.bash
+/usr/bin/python3.10 ur5e_ros2_lookAt_control.py
 ```
 
 - **Publishes:** `/urscript_interface/script_command`
 - **Description:**
-  - Subscribes to `/confidence`
-  - Computes robot motion (the example ur5e_ros2_lookAt_control.m implements a given sequence of viewpoint positions)
+  - Computes a predefined sequence of viewpoint poses
+  - Orients the UR5e TCP so its tool Z axis points at a fixed target point
   - Sends URScript commands to UR5e
 
 ---
@@ -180,8 +183,7 @@ Common issues:
 .
 ├── yolov5_ros/
 ├── confid_subpub/
-├── matlab/
-│   └── ur5e_ros2_lookAt_control.m
+├── ur5e_ros2_lookAt_control.py
 ├── launch/
 ├── README.md
 ```
@@ -191,7 +193,8 @@ Common issues:
 
 ## Author
 
-- Yalei Yu (y.yu2@lboro.ac.uk)  – Loughborough University  
+- Yalei Yu (y.yu2@lboro.ac.uk) – Loughborough University
+- Yuchuan Jin (y.jin2@lboro.ac.uk) – Loughborough University
 
 ---
 

@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+pip-wheel-metadata/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ROS 2 / colcon
+build/
+install/
+log/
+.colcon/
+
+# MATLAB
+*.asv
+*.m~
+*.mat
+*.mex*
+slprj/
+sccprj/
+codegen/
+
+# Logs and runtime output
+*.log
+*.bag
+*.db3
+*.sqlite3
+rosbag2_*/
+
+# Editors and local tooling
+.vscode/
+.idea/
+.codex
+*.swp
+*.swo
+*~
+
+# OS metadata
+.DS_Store
+Thumbs.db
